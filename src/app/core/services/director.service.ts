@@ -1,10 +1,10 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { Observable } from 'rxjs';
-import { environment } from '../../../environments/environment.development'
+import { environment } from '../../../environments/environment.development';
 import { Director } from '../interfaces/movie.interface';
 import { Page } from '../interfaces/page.interface';
-import { ENDPOINTS } from '../constants/Endpoints.const';
+import { ENDPOINTS } from '../constants/endpoints.const';
 import { ServiceResponse } from '../interfaces/service-response.interface';
 
 @Injectable({

@@ -1,23 +1,28 @@
 import { Routes } from '@angular/router';
 import { DirectorsComponent } from './pages/directors/directors.component';
 import { MoviesComponent } from './pages/movies/movies.component';
+import { PathRoutes } from './core/constants/routes.const';
 
 export const routes: Routes = [
   {
     path: '',
-    redirectTo: 'movies',
+    redirectTo: PathRoutes.MOVIES,
     pathMatch: 'full',
   },
   {
-    path: 'movies',
+    path: PathRoutes.MOVIES,
     component: MoviesComponent,
   },
   {
-    path: 'directors',
+    path: PathRoutes.DIRECTORS,
     component: DirectorsComponent,
   },
   {
+    path: PathRoutes.AUTH,
+    loadChildren: () => import('./pages/auth/auth.routing'),
+  },
+  {
     path: '**',
-    redirectTo: 'movies',
+    redirectTo: PathRoutes.MOVIES,
   },
 ];

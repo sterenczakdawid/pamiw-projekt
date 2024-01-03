@@ -1,6 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { FormsModule, NgForm } from '@angular/forms';
 import { Observable, map } from 'rxjs';
 import { Movie, Director } from '../../core/interfaces/movie.interface';
 import { Page } from '../../core/interfaces/page.interface';
@@ -11,7 +11,7 @@ import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-movies',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './movies.component.html',
   styleUrl: './movies.component.scss'
 })

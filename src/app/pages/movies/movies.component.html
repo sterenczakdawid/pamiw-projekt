@@ -8,11 +8,11 @@
       <div class="overflow-hidden card table-nowrap table-card">
         <div class="card-header d-flex justify-content-between align-items-center">
           <!-- <a class="btn btn-light btn-sm" (click)="onOpenModal(null, 'add')">Dodaj film</a> -->
-          <!-- <form #searchForm="ngForm" (ngSubmit)="goToPage(searchForm.value.title)" class="d-flex" role="search"> -->
-          <!-- <input type="text" name="title" ngModel class="form-control me-2" type="search" placeholder="Search"
-                aria-label="Search">
-              <button class="btn btn-outline-success" type="submit">Wyszukaj</button>
-            </form> -->
+          <form #searchForm="ngForm" (ngSubmit)="goToPage(searchForm.value.title)" class="d-flex" role="search">
+            <input type="text" name="title" ngModel class="form-control me-2" type="search" placeholder="Search"
+              aria-label="Search">
+            <button class="btn btn-outline-success" type="submit">Wyszukaj</button>
+          </form>
         </div>
 
         <div class="table-responsive">
@@ -57,9 +57,9 @@
   <nav aria-label="Page navigation example">
     <ul class="pagination justify-content-center">
       <li *ngFor="let pageNumber of [].constructor(movies.totalPages); let i = index;" class="page-item pointer">
-        <!-- <a (click)="goToPage((searchForm.value.title), i)" class="page-link">
-            {{ i + 1 }}
-          </a> -->
+        <a (click)="goToPage((searchForm.value.title), i)" class="page-link">
+          {{ i + 1 }}
+        </a>
       </li>
     </ul>
   </nav>
