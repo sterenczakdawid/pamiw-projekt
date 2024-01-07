@@ -7,13 +7,15 @@ import { Page } from '../../core/interfaces/page.interface';
 import { DirectorService } from '../../core/services/director.service';
 import { MovieService } from '../../core/services/movie.service';
 import { CommonModule } from '@angular/common';
+import { MatButtonModule } from '@angular/material/button';
+import { TranslocoModule } from '@ngneat/transloco';
 
 @Component({
   selector: 'app-movies',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, MatButtonModule, TranslocoModule],
   templateUrl: './movies.component.html',
-  styleUrl: './movies.component.scss'
+  styleUrl: './movies.component.scss',
 })
 export class MoviesComponent implements OnInit {
   public editMovie!: Movie;
@@ -44,24 +46,25 @@ export class MoviesComponent implements OnInit {
   }
 
   public onOpenModal(movie: Movie, mode: string): void {
-    const container = document.getElementById('main-container');
-    const button = document.createElement('button');
-    button.type = 'button';
-    button.style.display = 'none';
-    button.setAttribute('data-toggle', 'modal');
-    if (mode === 'add') {
-      button.setAttribute('data-target', '#addMovieModal');
-    }
+    // const container = document.getElementById('main-container');
+    // const button = document.createElement('button');
+    // button.type = 'button';
+    // button.style.display = 'none';
+    // button.setAttribute('data-toggle', 'modal');
+    // if (mode === 'add') {
+    //   button.setAttribute('data-target', '#addMovieModal');
+    // }
     if (mode === 'edit') {
       this.editMovie = movie;
-      button.setAttribute('data-target', '#updateMovieModal');
+      // button.setAttribute('data-target', '#updateMovieModal');
     }
     if (mode === 'delete') {
+      console.log('delete', movie.title);
       this.deleteMovie = movie;
-      button.setAttribute('data-target', '#deleteMovieModal');
+      // button.setAttribute('data-target', '#deleteMovieModal');
     }
-    container?.appendChild(button);
-    button.click();
+    // container?.appendChild(button);
+    // button.click();
   }
 
   public onAddMovie(addForm: NgForm): void {
@@ -79,20 +82,20 @@ export class MoviesComponent implements OnInit {
     });
   }
 
-  public onUpdateMovie(movie: Movie): void {
-    this.movieService.updateMovie(movie).subscribe({
-      next: (response: Movie) => {
-        console.log(response);
-        this.goToPage();
-      },
-      error: (error: HttpErrorResponse) => {
-        alert(error.message);
-      },
-    });
-  }
+  // public onUpdateMovie(movie: Movie): void {
+  //   this.movieService.updateMovie(movie).subscribe({
+  //     next: (response: Movie) => {
+  //       console.log(response);
+  //       this.goToPage();
+  //     },
+  //     error: (error: HttpErrorResponse) => {
+  //       alert(error.message);
+  //     },
+  //   });
+  // }
 
-  public onDeleteMovie(movieId: number): void {
-    this.movieService.deleteMovie(movieId).subscribe({
+  public onDeleteMovie(movie: Movie): void {
+    this.movieService.deleteMovie(movie.id).subscribe({
       next: () => {
         console.log('Movie deleted successfully');
         this.goToPage();

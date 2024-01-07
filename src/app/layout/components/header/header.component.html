@@ -7,3 +7,8 @@
     <button mat-stroked-button routerLink="/auth">Login</button>
   </mat-toolbar>
 </nav>
+<ng-container *transloco="let t">
+  <button (click)="changeLanguage()">
+    {{ t('language') }}
+  </button>
+</ng-container>
