@@ -1,13 +1,14 @@
-<nav>
-  <mat-toolbar color="primary">
-    <span>My App</span>
-    <span class="example-spacer"></span>
-    <button mat-button routerLink="/movies">Movies</button>
-    <button mat-button routerLink="/directors">Directors</button>
-    <button mat-stroked-button routerLink="/auth">Login</button>
-  </mat-toolbar>
-</nav>
 <ng-container *transloco="let t">
+  <nav>
+    <mat-toolbar color="primary">
+      <span>Movies App</span>
+      <span class="example-spacer"></span>
+      <button mat-button routerLink="/movies">{{t('navigation.movies')}}</button>
+      <button mat-button routerLink="/directors">{{t('navigation.directors')}}</button>
+      <button mat-stroked-button routerLink="/auth">{{t('navigation.login')}}</button>
+    </mat-toolbar>
+  </nav>
+
   <button (click)="changeLanguage()">
     {{ t('language') }}
   </button>

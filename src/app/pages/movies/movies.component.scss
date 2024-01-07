@@ -31,17 +31,17 @@
   }
 
   &__button {
-    position: absolute;
-    top: 7px;
-    right: 7px;
-    padding: 7px;
-    background: none;
-    border: none;
-    color: #fff;
-    font-size: 20px;
-    text-shadow: 2px 2px 5px rgb(0, 0, 0);
-    cursor: crosshair;
+    width: 80px;
+    margin: 10px;
   }
+}
+
+.card-title {
+  height: 48px;
+}
+
+.modal-movie-title {
+  font-weight: 500;
 }
 
 .pointer {

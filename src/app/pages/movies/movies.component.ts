@@ -46,25 +46,13 @@ export class MoviesComponent implements OnInit {
   }
 
   public onOpenModal(movie: Movie, mode: string): void {
-    // const container = document.getElementById('main-container');
-    // const button = document.createElement('button');
-    // button.type = 'button';
-    // button.style.display = 'none';
-    // button.setAttribute('data-toggle', 'modal');
-    // if (mode === 'add') {
-    //   button.setAttribute('data-target', '#addMovieModal');
-    // }
     if (mode === 'edit') {
       this.editMovie = movie;
-      // button.setAttribute('data-target', '#updateMovieModal');
     }
     if (mode === 'delete') {
       console.log('delete', movie.title);
       this.deleteMovie = movie;
-      // button.setAttribute('data-target', '#deleteMovieModal');
     }
-    // container?.appendChild(button);
-    // button.click();
   }
 
   public onAddMovie(addForm: NgForm): void {

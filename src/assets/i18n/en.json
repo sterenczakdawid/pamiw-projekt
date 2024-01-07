@@ -1,6 +1,27 @@
 {
   "language": "Change language",
+  "navigation": {
+    "movies": "Movies",
+    "directors": "Directors",
+    "login": "Login"
+  },
   "movies": {
-    "page_title": "Movies"
+    "page_title": "Movies",
+    "search": "Search",
+    "title": "Title",
+    "director": "Director",
+    "released": "Released",
+    "posterUrl": "Poster URL",
+    "add": "Add new movie",
+    "edit": "Edit",
+    "delete": "Delete",
+    "no": "No",
+    "yes": "Yes",
+    "close": "Close",
+    "save": "Save",
+    "delete_modal": {
+      "title": "Delete movie",
+      "text": "Are you sure you want to delete movie "
+    }
   }
 }

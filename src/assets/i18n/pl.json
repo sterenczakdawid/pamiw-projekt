@@ -1,6 +1,27 @@
 {
   "language": "Zmień język",
+  "navigation": {
+    "movies": "Filmy",
+    "directors": "Reżyserowie",
+    "login": "Zaloguj"
+  },
   "movies": {
-    "page_title": "Filmy"
+    "page_title": "Filmy",
+    "search": "Szukaj",
+    "title": "Tytuł",
+    "director": "Reżyser",
+    "released": "Premiera",
+    "posterUrl": "URL plakatu",
+    "add": "Dodaj nowy film",
+    "edit": "Edytuj",
+    "delete": "Usuń",
+    "no": "Nie",
+    "yes": "Tak",
+    "close": "Zamknij",
+    "save": "Zapisz",
+    "delete_modal": {
+      "title": "Usuń film",
+      "text": "Czy na pewno usunąć film "
+    }
   }
 }
