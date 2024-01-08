@@ -9,11 +9,24 @@ import { MovieService } from '../../core/services/movie.service';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { TranslocoModule } from '@ngneat/transloco';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-movies',
   standalone: true,
-  imports: [CommonModule, FormsModule, MatButtonModule, TranslocoModule],
+  imports: [
+    CommonModule,
+    FormsModule,
+    MatButtonModule,
+    MatInputModule,
+    TranslocoModule,
+    MatFormFieldModule,
+    MatIconModule,
+    MatPaginatorModule,
+  ],
   templateUrl: './movies.component.html',
   styleUrl: './movies.component.scss',
 })

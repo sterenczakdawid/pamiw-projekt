@@ -2,14 +2,21 @@
 
 <ng-container *transloco="let t; read: 'movies'">
   @if(movies$ | async; as movies) {
-  <h1 class="title">{{t('page_title')}}</h1>
-  <div class="header d-flex justify-content-between align-items-center">
-    <a class="btn btn-light btn-sm" data-bs-toggle="modal" data-bs-target="#addMovieModal"
-      (click)="onOpenModal(null!, 'add')">{{t('add')}}</a>
-    <form #searchForm="ngForm" (ngSubmit)="goToPage(searchForm.value.title)" class="d-flex" role="search">
-      <input type="text" name="title" ngModel class="form-control me-2" type="search" aria-label="Search">
-      <button mat-stroked-button color="primary" type="submit">{{t('search')}}</button>
+  <div class="header d-flex justify-content-center align-items-center flex-column">
+    <h1 class="title">{{t('page_title')}}</h1>
+    <form #searchForm="ngForm" (ngSubmit)="goToPage(searchForm.value.title)" role="search">
+      <mat-form-field appearance="outline">
+        <mat-label>{{t('search')}}</mat-label>
+        <input matInput id="search" name="title" ngModel>
+        <button mat-icon-button matSuffix type="submit">
+          <mat-icon>search</mat-icon>
+        </button>
+      </mat-form-field>
     </form>
+    <button mat-raised-button class="add-button" data-bs-toggle="modal" data-bs-target="#addMovieModal"
+      (click)="onOpenModal(null!, 'add')">
+      {{t('add')}}<i class="fa-solid fa-plus ms-2"></i>
+    </button>
   </div>
 
   <div class="movies__wrapper">
@@ -32,15 +39,18 @@
     </div>
     }
   </div>
-  <nav aria-label="Page navigation example">
+  <nav>
     <ul class="pagination justify-content-center">
       <li *ngFor="let pageNumber of [].constructor(movies.totalPages); let i = index;" class="page-item pointer">
-        <a (click)="goToPage((searchForm.value.title), i)" class="page-link">
+        <!-- <a (click)="goToPage((searchForm.value.title), i)" class="page-link">
           {{ i + 1 }}
-        </a>
+        </a> -->
       </li>
     </ul>
   </nav>
+  <mat-paginator (page)="goToPage((searchForm.value.title), movies.number+1)" [length]='movies.totalElements'
+    [pageSize]='movies.numberOfElements' [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page">
+  </mat-paginator>
   }
 
   <!-- Delete modal -->
@@ -101,7 +111,7 @@
             </div>
             <div class="modal-footer">
               <button type="button" id="add-movie-form" class="btn btn-secondary"
-                data-dismiss="modal">{{t('close')}}</button>
+                data-bs-dismiss="modal">{{t('close')}}</button>
               <button [disabled]="addForm.invalid" type="submit" class="btn btn-primary">{{t('save')}}</button>
             </div>
           </form>
