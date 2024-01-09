@@ -1,6 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { FormsModule, NgForm } from '@angular/forms';
+import { FormControl, FormsModule, NgForm, Validators } from '@angular/forms';
 import { Observable, map } from 'rxjs';
 import { Movie, Director } from '../../core/interfaces/movie.interface';
 import { Page } from '../../core/interfaces/page.interface';
@@ -13,6 +13,9 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatSelectModule } from '@angular/material/select';
 
 @Component({
   selector: 'app-movies',
@@ -26,6 +29,9 @@ import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
     MatFormFieldModule,
     MatIconModule,
     MatPaginatorModule,
+    MatProgressSpinnerModule,
+    ReactiveFormsModule,
+    MatSelectModule,
   ],
   templateUrl: './movies.component.html',
   styleUrl: './movies.component.scss',
@@ -43,9 +49,11 @@ export class MoviesComponent implements OnInit {
   directors$!: Observable<Director[]>;
 
   ngOnInit(): void {
-    this.movies$ = this.movieService
-      .get()
-      .pipe(map((response) => response.data));
+    setTimeout(() => {
+      this.movies$ = this.movieService
+        .get()
+        .pipe(map((response) => response.data));
+    }, 1500);
 
     this.directors$ = this.directorService
       .getDirectors()
@@ -63,7 +71,6 @@ export class MoviesComponent implements OnInit {
       this.editMovie = movie;
     }
     if (mode === 'delete') {
-      console.log('delete', movie.title);
       this.deleteMovie = movie;
     }
   }
@@ -98,7 +105,6 @@ export class MoviesComponent implements OnInit {
   public onDeleteMovie(movie: Movie): void {
     this.movieService.deleteMovie(movie.id).subscribe({
       next: () => {
-        console.log('Movie deleted successfully');
         this.goToPage();
       },
       error: (error: HttpErrorResponse) => {

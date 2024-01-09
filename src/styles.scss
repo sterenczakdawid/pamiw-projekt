@@ -18,3 +18,8 @@ body {
 // mat-form-field {
 //   width: 90%;
 // }
+
+.cdk-global-overlay-wrapper,
+.cdk-overlay-container {
+  z-index: 9999 !important;
+}
