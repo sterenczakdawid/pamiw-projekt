@@ -83,17 +83,17 @@ export class MoviesComponent implements OnInit {
     });
   }
 
-  // public onUpdateMovie(movie: Movie): void {
-  //   this.movieService.updateMovie(movie).subscribe({
-  //     next: (response: Movie) => {
-  //       console.log(response);
-  //       this.goToPage();
-  //     },
-  //     error: (error: HttpErrorResponse) => {
-  //       alert(error.message);
-  //     },
-  //   });
-  // }
+  public onUpdateMovie(movie: Movie): void {
+    this.movieService.updateMovie(movie).subscribe({
+      next: (response: Movie) => {
+        console.log(response);
+        this.goToPage();
+      },
+      error: (error: HttpErrorResponse) => {
+        alert(error.message);
+      },
+    });
+  }
 
   public onDeleteMovie(movie: Movie): void {
     this.movieService.deleteMovie(movie.id).subscribe({

@@ -30,8 +30,8 @@
         </p>
         <p>{{t('released')}}: {{movie.yearOfRelease}}</p>
         <div>
-          <button class="movies__card__button" mat-raised-button color="primary"
-            (click)="onOpenModal(movie, 'edit')">{{t('edit')}}</button>
+          <button class="movies__card__button" mat-raised-button color="primary" data-bs-toggle="modal"
+            data-bs-target="#updateMovieModal" (click)="onOpenModal(movie, 'edit')">{{t('edit')}}</button>
           <button class="movies__card__button" mat-raised-button color="warn" data-bs-toggle="modal"
             data-bs-target="#exampleModal" (click)="onOpenModal(movie, 'delete')">{{t('delete')}}</button>
         </div>
@@ -42,15 +42,15 @@
   <nav>
     <ul class="pagination justify-content-center">
       <li *ngFor="let pageNumber of [].constructor(movies.totalPages); let i = index;" class="page-item pointer">
-        <!-- <a (click)="goToPage((searchForm.value.title), i)" class="page-link">
+        <a (click)="goToPage((searchForm.value.title), i)" class="page-link">
           {{ i + 1 }}
-        </a> -->
+        </a>
       </li>
     </ul>
   </nav>
-  <mat-paginator (page)="goToPage((searchForm.value.title), movies.number+1)" [length]='movies.totalElements'
+  <!-- <mat-paginator (page)="goToPage((searchForm.value.title), movies.number+1)" [length]='movies.totalElements'
     [pageSize]='movies.numberOfElements' [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page">
-  </mat-paginator>
+  </mat-paginator> -->
   }
 
   <!-- Delete modal -->
@@ -121,50 +121,49 @@
   </div>
 
   <!-- Edit Modal -->
-  <!-- <div class="modal fade" id="updateMovieModal" tabindex="-1" role="dialog" aria-labelledby="movieEditModalLabel"
-  aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="updateMovieModalLabel">Edit Movie {{editMovie?.title}}</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <form #editForm="ngForm">
-          <div class="form-group">
-            <label for="title">Title</label>
-            <input type="text" ngModel="{{editMovie?.title}}" name="title" class="form-control" id="title"
-              aria-describedby="emailHelp" placeholder="Title">
-          </div>
-          <input type="hidden" ngModel="{{editMovie?.id}}" name="id" class="form-control" id="id" placeholder="">
-          <div class="form-group" *ngIf="directors$ | async as directors">
-            <label for="director">Director</label>
-            <select ngModel name="director" class="form-control" id="director" placeholder="Director" required>
-              <option *ngFor="let director of directors" [ngValue]="director">
-                {{ director.name }} {{ director.surname }}
-              </option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label for="yearOfRelease">yearOfRelease</label>
-            <input type="number" ngModel="{{editMovie?.yearOfRelease}}" name="yearOfRelease" class="form-control"
-              id="yearOfRelease" placeholder="2023">
-          </div>
-          <div class="form-group">
-            <label for="posterUrl">Image URL</label>
-            <input type="text" ngModel="{{editMovie?.posterUrl}}" name="posterUrl" class="form-control" id="posterUrl"
-              placeholder="Movie URL">
-          </div>
-          <div class="modal-footer">
-            <button type="button" id="" data-dismiss="modal" class="btn btn-secondary">Close</button>
-            <button (click)="onUpdateMovie(editForm.value)" data-dismiss="modal" class="btn btn-primary">Save
-              changes</button>
-          </div>
-        </form>
+  <div class="modal fade" id="updateMovieModal" tabindex="-1" role="dialog" aria-labelledby="movieEditModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="updateMovieModalLabel">{{t('edit')}} {{editMovie?.title}}</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+          </button>
+        </div>
+        <div class="modal-body">
+          <form #editForm="ngForm">
+            <div class="form-group">
+              <label for="title">Title</label>
+              <input type="text" ngModel="{{editMovie?.title}}" name="title" class="form-control" id="title"
+                aria-describedby="emailHelp" placeholder="Title">
+            </div>
+            <input type="hidden" ngModel="{{editMovie?.id}}" name="id" class="form-control" id="id" placeholder="">
+            <div class="form-group" *ngIf="directors$ | async as directors">
+              <label for="director">Director</label>
+              <select ngModel name="director" class="form-control" id="director" placeholder="Director" required>
+                <option *ngFor="let director of directors" [ngValue]="director">
+                  {{ director.name }} {{ director.surname }}
+                </option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="yearOfRelease">yearOfRelease</label>
+              <input type="number" ngModel="{{editMovie?.yearOfRelease}}" name="yearOfRelease" class="form-control"
+                id="yearOfRelease" placeholder="2023">
+            </div>
+            <div class="form-group">
+              <label for="posterUrl">Image URL</label>
+              <input type="text" ngModel="{{editMovie?.posterUrl}}" name="posterUrl" class="form-control" id="posterUrl"
+                placeholder="Movie URL">
+            </div>
+            <div class="modal-footer">
+              <button type="button" id="" data-dismiss="modal" class="btn btn-secondary">Close</button>
+              <button (click)="onUpdateMovie(editForm.value)" data-dismiss="modal" class="btn btn-primary">Save
+                changes</button>
+            </div>
+          </form>
+        </div>
       </div>
     </div>
   </div>
-</div> -->
 </ng-container>
