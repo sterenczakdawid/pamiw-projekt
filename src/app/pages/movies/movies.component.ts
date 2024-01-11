@@ -1,6 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormsModule, NgForm, Validators } from '@angular/forms';
+import { FormsModule, NgForm } from '@angular/forms';
 import { Observable, map } from 'rxjs';
 import { Movie, Director } from '../../core/interfaces/movie.interface';
 import { Page } from '../../core/interfaces/page.interface';
@@ -53,7 +53,7 @@ export class MoviesComponent implements OnInit {
       this.movies$ = this.movieService
         .get()
         .pipe(map((response) => response.data));
-    }, 1500);
+    }, 500);
 
     this.directors$ = this.directorService
       .getDirectors()
@@ -76,7 +76,8 @@ export class MoviesComponent implements OnInit {
   }
 
   public onAddMovie(addForm: NgForm): void {
-    document.getElementById('add-movie-form')?.click();
+    console.log(addForm.value);
+    // document.getElementById('add-movie-form')?.click();
     this.movieService.addMovie(addForm.value).subscribe({
       next: (response: Movie) => {
         console.log(response);

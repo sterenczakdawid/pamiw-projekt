@@ -1,1 +1,50 @@
-<p>register works!</p>
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+
+<div class="card" *transloco="let t; read: 'auth'">
+  <div class="card-header">
+    <h2 class="card-title">{{t('register')}}</h2>
+  </div>
+  <div class="card-body">
+    <form [formGroup]="registerForm" (ngSubmit)="submitForm()" class="form">
+      <div class="mb-3">
+        <label for="name" class="form-label">name</label>
+        <input type="text" class="form-control" id="name" formControlName="name" />
+        <div class="text-danger"
+          *ngIf="registerForm.get('name')!.touched && registerForm.get('name')!.hasError('required')">
+          required
+        </div>
+      </div>
+      <div class="mb-3">
+        <label for="email" class="form-label">email</label>
+        <input type="email" class="form-control" id="email" formControlName="email" />
+        <div class="text-danger"
+          *ngIf="registerForm.get('email')!.touched && registerForm.get('email')!.hasError('required')">
+          required
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label for="password" class="form-label">password</label>
+        <input type="password" class="form-control" id="password" formControlName="password" />
+        <div class="text-danger"
+          *ngIf="registerForm.get('password')!.touched && registerForm.get('password')!.hasError('required')">
+          required
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label for="repeatPassword" class="form-label">repeat</label>
+        <input type="password" class="form-control" id="repeatPassword" formControlName="repeatPassword" />
+        <div class="text-danger"
+          *ngIf="registerForm.get('repeatPassword')!.touched && registerForm.hasError('passwordMismatch')">
+          password must match
+        </div>
+      </div>
+      <a routerLink="/login">login link</a>
+      <button type="submit" class="btn btn-primary submit  d-flex gap-2 justify-content-center align-items-center"
+        [disabled]="registerForm.invalid">
+        registartion
+      </button>
+    </form>
+  </div>
+</div>

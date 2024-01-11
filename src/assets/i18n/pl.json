@@ -3,7 +3,21 @@
   "navigation": {
     "movies": "Filmy",
     "directors": "Reżyserowie",
-    "login": "Zaloguj"
+    "account": "Konto",
+    "login": "Zaloguj",
+    "register": "Zarejestruj",
+    "my-acc": "Moje konto",
+    "logout": "Wyloguj"
+  },
+  "auth": {
+    "login": "Logowanie",
+    "register": "Rejestracja",
+    "name": "Imię",
+    "password": "Hasło",
+    "repeatPassword": "Powtórz hasło",
+    "passwordsMustMatch": "Hasła muszą być takie same!",
+    "loginLink": "Masz już konto? Zaloguj się!",
+    "registerLink": "Nie masz konta? Zarejestruj się!"
   },
   "movies": {
     "page_title": "Filmy",

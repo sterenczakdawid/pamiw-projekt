@@ -3,7 +3,21 @@
   "navigation": {
     "movies": "Movies",
     "directors": "Directors",
-    "login": "Login"
+    "account": "Account",
+    "login": "Login",
+    "register": "Register",
+    "my-acc": "My account",
+    "logout": "Logout"
+  },
+  "auth": {
+    "login": "Login",
+    "register": "Register",
+    "name": "Name",
+    "password": "Password",
+    "repeatPassword": "Repeat password",
+    "passwordsMustMatch": "Passwords must match",
+    "loginLink": "Already have an account? Login here",
+    "registerLink": "Don't have an account? Register here"
   },
   "movies": {
     "page_title": "Movies",

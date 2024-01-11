@@ -5,7 +5,17 @@
       <span class="example-spacer"></span>
       <button mat-button routerLink="/movies">{{t('navigation.movies')}}</button>
       <button mat-button routerLink="/directors">{{t('navigation.directors')}}</button>
-      <button mat-stroked-button routerLink="/auth">{{t('navigation.login')}}</button>
+      <button mat-button [matMenuTriggerFor]="beforeMenu">{{t('navigation.account')}}</button>
+      <mat-menu #beforeMenu="matMenu" xPosition="before">
+        @if(authService.token) {
+        <button routerLink="/profile" mat-menu-item>dupa</button>
+        <button (click)="logout()" mat-menu-item>wyloguj</button>
+        }
+        @else {
+        <button routerLink="/auth/login" mat-menu-item>{{t('navigation.login')}}</button>
+        <button routerLink="/auth/register" mat-menu-item>{{t('navigation.register')}}</button>
+        }
+      </mat-menu>
     </mat-toolbar>
   </nav>
 

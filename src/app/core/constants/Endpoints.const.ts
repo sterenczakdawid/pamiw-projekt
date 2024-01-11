@@ -10,4 +10,7 @@ export const ENDPOINTS = {
   DIRECTORS_DELETE: 'api/v1/directors/delete/',
   DIRECTORS_UPDATE: 'api/v1/directors/update',
   DIRECTORS_ADD: 'api/v1/directors/add',
+
+  REGISTER: 'api/v1/auth/register',
+  AUTH: 'api/v1/auth/authenticate',
 };

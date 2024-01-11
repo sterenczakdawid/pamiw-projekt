@@ -1,12 +1,60 @@
-import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Component, inject } from '@angular/core';
+import {
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
+import { Router } from '@angular/router';
+import { take, tap, catchError, of } from 'rxjs';
+import { AuthService } from '../../../core/services/auth.service';
+import { PasswordMatchValidator } from '../../../shared/validators/password-match.validator';
+import { TranslocoModule } from '@ngneat/transloco';
+import { RegisterRequest } from '../../../core/interfaces/auth.interface';
 
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [],
+  imports: [CommonModule, ReactiveFormsModule, TranslocoModule],
   templateUrl: './register.component.html',
-  styleUrl: './register.component.scss'
+  styleUrl: './register.component.scss',
 })
 export class RegisterComponent {
+  private authService = inject(AuthService);
+  private fb = inject(FormBuilder);
+  private router = inject(Router);
+  // canSubmit = true;
 
+  registerForm = this.fb.group(
+    {
+      name: ['', [Validators.required]],
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required]],
+      repeatPassword: ['', [Validators.required]],
+    },
+    { validators: [PasswordMatchValidator] }
+  );
+
+  submitForm(): void {
+    const user = this.registerForm.value as RegisterRequest;
+    console.log(user);
+
+    this.authService
+      .register(user)
+      .pipe(
+        take(1),
+        tap((response) => {
+          this.authService.token = response?.token;
+          this.router.navigateByUrl('/movies');
+        }),
+        catchError(() => {
+          this.registerForm.reset();
+          return of(false);
+        })
+      )
+      .subscribe((response) => {
+        console.log(response);
+      });
+  }
 }

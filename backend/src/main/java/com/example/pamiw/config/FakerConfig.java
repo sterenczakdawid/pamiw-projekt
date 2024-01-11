@@ -57,7 +57,7 @@ public class FakerConfig {
     @Bean
     CommandLineRunner commandLineRunner(MovieRepo movieRepo, DirectorRepo directorRepo, AuthenticationService authenticationService) {
         return args -> {
-            authenticationService.register(new RegisterRequest("admin", "admin", "admin@admin.pl", "1234"));
+            authenticationService.register(new RegisterRequest("admin", "admin@admin.pl", "admin"));
             Random random = new Random(987654321);
             Faker faker = new Faker(Locale.ENGLISH, random);
             for(int i=0; i<20; i++) {
