@@ -59,6 +59,7 @@ public class FakerConfig {
     CommandLineRunner commandLineRunner(MovieRepo movieRepo, DirectorRepo directorRepo, AuthenticationService authenticationService) {
         return args -> {
             authenticationService.register(new RegisterRequest("admin", "admin@admin.pl", "admin", Role.ADMIN));
+            authenticationService.register(new RegisterRequest("dawid", "dawid@dawid.pl", "dawid", Role.USER));
             Random random = new Random(987654321);
             Faker faker = new Faker(Locale.ENGLISH, random);
             for(int i=0; i<20; i++) {

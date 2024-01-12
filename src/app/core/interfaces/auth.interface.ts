@@ -12,3 +12,14 @@ export interface LoginRequest {
 export interface AuthResponse {
   token: string;
 }
+
+export interface UserToken {
+  roles: Role[];
+  sub: string;
+  iat: number;
+  exp: number;
+}
+
+export interface Role {
+  authority: string;
+}

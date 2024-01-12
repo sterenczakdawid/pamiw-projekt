@@ -1,3 +1,4 @@
+import { UserToken } from './../interfaces/auth.interface';
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { Observable, map } from 'rxjs';
@@ -9,6 +10,7 @@ import {
   LoginRequest,
 } from '../interfaces/auth.interface';
 import { ServiceResponse } from '../interfaces/service-response.interface';
+import { jwtDecode } from 'jwt-decode';
 
 @Injectable({
   providedIn: 'root',
@@ -45,5 +47,10 @@ export class AuthService {
 
   removeToken(): void {
     window.localStorage.removeItem(this.KeyStorage);
+  }
+
+  decodeToken(): UserToken | null {
+    const token = this.token;
+    return token ? jwtDecode(token) : null;
   }
 }
