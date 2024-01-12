@@ -2,6 +2,7 @@ package com.example.pamiw.config;
 
 import com.example.pamiw.model.Director;
 import com.example.pamiw.model.Movie;
+import com.example.pamiw.model.Role;
 import com.example.pamiw.shared.RegisterRequest;
 import com.example.pamiw.repository.DirectorRepo;
 import com.example.pamiw.repository.MovieRepo;
@@ -57,7 +58,7 @@ public class FakerConfig {
     @Bean
     CommandLineRunner commandLineRunner(MovieRepo movieRepo, DirectorRepo directorRepo, AuthenticationService authenticationService) {
         return args -> {
-            authenticationService.register(new RegisterRequest("admin", "admin@admin.pl", "admin"));
+            authenticationService.register(new RegisterRequest("admin", "admin@admin.pl", "admin", Role.ADMIN));
             Random random = new Random(987654321);
             Faker faker = new Faker(Locale.ENGLISH, random);
             for(int i=0; i<20; i++) {

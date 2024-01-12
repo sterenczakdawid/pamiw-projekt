@@ -8,7 +8,7 @@
       <button mat-button [matMenuTriggerFor]="beforeMenu">{{t('navigation.account')}}</button>
       <mat-menu #beforeMenu="matMenu" xPosition="before">
         @if(authService.token) {
-        <button routerLink="/profile" mat-menu-item>dupa</button>
+        <button routerLink="/auth/account" mat-menu-item>dupa</button>
         <button (click)="logout()" mat-menu-item>wyloguj</button>
         }
         @else {

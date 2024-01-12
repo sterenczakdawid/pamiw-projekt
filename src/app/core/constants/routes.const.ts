@@ -4,4 +4,5 @@ export const PathRoutes = {
   AUTH: 'auth',
   LOGIN: 'login',
   REGISTER: 'register',
+  ACCOUNT: 'account',
 };

@@ -1,5 +1,6 @@
 package com.example.pamiw.shared;
 
+import com.example.pamiw.model.Role;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -11,7 +12,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class RegisterRequest {
     private String name;
-//    private String lastname;
     private String email;
     private String password;
+    private Role role;
 }
