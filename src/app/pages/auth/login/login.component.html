@@ -1,3 +1,4 @@
+<script src="https://accounts.google.com/gsi/client" async></script>
 <div class="login__wrapper">
   <div class="login__card">
     <h2 class="login__card__title">Zaloguj się</h2>
@@ -34,4 +35,20 @@
       <button type="submit" mat-raised-button color="primary">Login</button>
     </form>
   </div>
+  <!-- <asl-google-signin-button type='standard' size='large'>
+  </asl-google-signin-button>
+  <div>
+    <h4>{{ user?.name }}</h4>
+    <p>{{ user?.email }}</p>
+    <p>{{loggedIn ? 'true' : 'false'}}</p>
+  </div>
+  <button (click)="signOut()" mat-raised-button color="primary">logout</button> -->
+  <div>
+    <h2>Login with google</h2>
+    <div id="buttonDiv"></div>
+  </div>
 </div>
+
+<!-- <div class="g_id_onload" data-client_id="" data-context="signin" data-ux_mode="popup" data-itp_support="true"
+  data-callback="handleOauthResponse">
+</div> -->

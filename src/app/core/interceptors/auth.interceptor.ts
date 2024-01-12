@@ -18,6 +18,5 @@ export function authInterceptor(req: HttpRequest<any>, next: HttpHandlerFn): Obs
       },
     });
   }
-  console.log('lol');
   return next(req);
 };

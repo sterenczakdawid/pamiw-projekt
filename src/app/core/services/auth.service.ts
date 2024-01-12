@@ -1,5 +1,5 @@
 import { UserToken } from './../interfaces/auth.interface';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { Observable, map } from 'rxjs';
 import { environment } from '../../../environments/environment.development';
@@ -18,6 +18,7 @@ import { jwtDecode } from 'jwt-decode';
 export class AuthService {
   private http = inject(HttpClient);
   private KeyStorage = 'AUTH_TOKEN';
+  isGoogle = false;
 
   register(authRequest: RegisterRequest): Observable<AuthResponse> {
     return this.http
@@ -33,6 +34,19 @@ export class AuthService {
       .post<ServiceResponse<AuthResponse>>(
         `${environment.apiUrl}${ENDPOINTS.AUTH}`,
         authRequest
+      )
+      .pipe(map((res) => res?.data));
+  }
+
+  loginWithGoogle(credentials: string): Observable<AuthResponse> {
+    this.isGoogle = true;
+    console.log('wysylam ' + credentials);
+    const header = new HttpHeaders().set('Content-type', 'application/json');
+    return this.http
+      .post<ServiceResponse<AuthResponse>>(
+        `${environment.apiUrl}${ENDPOINTS.GOOGLE}`,
+        JSON.stringify(credentials),
+        { headers: header }
       )
       .pipe(map((res) => res?.data));
   }

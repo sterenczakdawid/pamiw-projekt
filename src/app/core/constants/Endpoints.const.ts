@@ -13,4 +13,5 @@ export const ENDPOINTS = {
 
   REGISTER: 'api/v1/auth/register',
   AUTH: 'api/v1/auth/authenticate',
+  GOOGLE: 'api/v1/auth/google'
 };

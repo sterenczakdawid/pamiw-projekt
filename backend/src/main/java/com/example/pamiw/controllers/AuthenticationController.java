@@ -25,4 +25,17 @@ public class AuthenticationController {
     public ServiceResponse<AuthenticationResponse> authenticate(@RequestBody AuthenticationRequest request){
         return new ServiceResponse<>(this.authenticationService.authenticate(request),true,"User successfully authenticated");
     }
+
+
+  @PostMapping("/google")
+  public ServiceResponse<AuthenticationResponse> authenticate(@RequestBody String token){
+    AuthenticationResponse response = this.authenticationService.logInWithGoogle(token);
+    System.out.println("Received token from backend: " + response != null ? response.getToken() : "null");
+    if (response != null) {
+      return new ServiceResponse<>(response, true, "User successfully authenticated with google");
+    } else {
+      return new ServiceResponse<>(null, false, "Failed to authenticate user with google");
+    }
+  }
+
 }

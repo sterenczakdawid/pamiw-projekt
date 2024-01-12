@@ -8,7 +8,7 @@ import { LayoutComponent } from './layout/layout.component';
   standalone: true,
   imports: [CommonModule, RouterOutlet, LayoutComponent],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.scss'
+  styleUrl: './app.component.scss',
 })
 export class AppComponent {
   title = 'pamiw_projekt';

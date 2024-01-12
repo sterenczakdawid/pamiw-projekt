@@ -1,5 +1,5 @@
 import { AuthService } from './../../../core/services/auth.service';
-import { Component, inject } from '@angular/core';
+import { Component, NgZone, inject } from '@angular/core';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
@@ -26,10 +26,15 @@ export class HeaderComponent {
   translocoService = inject(TranslocoService);
   authService = inject(AuthService);
   router = inject(Router);
+  private _ngZone = inject(NgZone);
 
   logout() {
     this.authService.removeToken();
-    this.router.navigateByUrl('/auth/login');
+    this._ngZone.run(() => {
+      this.router
+        .navigateByUrl('/auth/login')
+        .then(() => window.location.reload());
+    });
   }
 
   changeLanguage() {

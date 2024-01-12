@@ -10,6 +10,7 @@
   },
   "private": true,
   "dependencies": {
+    "@abacritt/angularx-social-login": "^2.2.0",
     "@angular/animations": "^17.0.0",
     "@angular/cdk": "^17.0.4",
     "@angular/common": "^17.0.0",
@@ -22,6 +23,7 @@
     "@angular/router": "^17.0.0",
     "@angular/service-worker": "^17.0.0",
     "@ngneat/transloco": "^6.0.4",
+    "@types/google-one-tap": "^1.2.6",
     "bootstrap": "^5.3.2",
     "jwt-decode": "^4.0.0",
     "rxjs": "~7.8.0",

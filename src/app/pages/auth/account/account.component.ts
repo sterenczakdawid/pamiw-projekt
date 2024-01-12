@@ -13,4 +13,5 @@ export class AccountComponent {
 
   decoded = this.authService.decodeToken();
   role = this.decoded?.roles[0].authority;
+  username = this.decoded?.sub;
 }
