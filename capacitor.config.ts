@@ -5,7 +5,9 @@ const config: CapacitorConfig = {
   appName: 'pamiw-projekt',
   webDir: 'dist/pamiw_projekt/browser',
   server: {
-    androidScheme: 'https',
+    // url: '',
+    // cleartext: true,
+    // androidScheme: 'https',
   },
 };
 
