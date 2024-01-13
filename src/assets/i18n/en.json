@@ -37,5 +37,22 @@
       "title": "Delete movie",
       "text": "Are you sure you want to delete movie "
     }
+  },
+  "directors": {
+    "page_title": "Directors",
+    "name": "Name",
+    "surname": "Surname",
+    "search": "Search",
+    "add": "Add new director",
+    "edit": "Edit",
+    "delete": "Delete",
+    "no": "No",
+    "yes": "Yes",
+    "close": "Close",
+    "save": "Save",
+    "delete_modal": {
+      "title": "Delete director",
+      "text": "Are you sure you want to delete director "
+    }
   }
 }

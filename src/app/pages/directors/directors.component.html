@@ -1,156 +1,152 @@
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
 
-@if(directorsPage$ | async; as directors) {
-<div class="container mt-4" id="main-container">
-  <h1 class="title">Reżyserowie</h1>
-  <div class="row">
-    <div class="col-12 mb-3 mb-lg-5">
-      <div class="overflow-hidden card table-nowrap table-card">
-        <div class="card-header d-flex justify-content-between align-items-center">
-          <!-- <a class="btn btn-light btn-sm" (click)="onOpenModal({}, 'add')">Dodaj reżysera</a> -->
-          <form #searchForm="ngForm" (ngSubmit)="goToPage(searchForm.value.title)" class="d-flex" role="search">
-            <input type="text" name="title" ngModel class="form-control me-2" type="search" placeholder="Search"
-              aria-label="Search">
-            <button class="btn btn-outline-success" type="submit">Wyszukaj</button>
-          </form>
-        </div>
+<ng-container *transloco="let t; read: 'directors'">
+  <div class="header d-flex justify-content-center align-items-center flex-column">
+    <h1 class="title">{{t('page_title')}}</h1>
+    <form #searchForm="ngForm" (ngSubmit)="goToPage(searchForm.value.title)" role="search">
+      <mat-form-field appearance="outline">
+        <mat-label>{{t('search')}}</mat-label>
+        <input matInput id="search" name="title" ngModel>
+        <button mat-icon-button matSuffix type="submit">
+          <mat-icon>search</mat-icon>
+        </button>
+      </mat-form-field>
+    </form>
+    <button mat-raised-button class="add-button" data-bs-toggle="modal" data-bs-target="#addDirectorModal"
+      (click)="onOpenModal(null!, 'add')">
+      {{t('add')}}<i class="fa-solid fa-plus ms-2"></i>
+    </button>
+  </div>
 
-        <div class="table-responsive">
-          <table class="table mb-0">
-            <thead class="small text-uppercase bg-body text-muted">
-              <tr>
-                <th>ID</th>
-                <th>Imię</th>
-                <th>Nazwisko</th>
-                <th class="text-end">Action</th>
-              </tr>
-            </thead>
-            <tbody *ngFor="let director of directors.content; let i = index;">
-              <tr class="align-middle">
-                <td>
-                  <div class="d-flex align-items-center">
-                    <div>
-                      <div class="h6 mb-0 lh-1">{{director.id}}</div>
-                    </div>
-                  </div>
-                </td>
-                <td>{{director.name}}</td>
-                <td> <span class="d-inline-block align-middle">{{director.surname}}</span></td>
-                <td class="text-end">
-                  <div class="drodown">
-                    <a data-bs-toggle="dropdown" href="#" class="btn p-1" aria-expanded="false">
-                      <i class="fa fa-bars" aria-hidden="true"></i>
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-end">
-                      <a href="#!" class="dropdown-item" (click)="onOpenModal(director, 'edit')">Edytuj</a>
-                      <a href="#!" class="dropdown-item" (click)="onOpenModal(director, 'delete')">Usuń</a>
-                    </div>
-                  </div>
-                </td>
-              </tr>
-            </tbody>
-          </table>
+  @if(directorsPage$ | async; as directors) {
+  <div class="directors__wrapper">
+    @for(director of directors.content; track $index) {
+    <div class="card directors__card">
+      <div class="card-body">
+        <h5 class="card-title">{{director.name}} {{director.surname}}</h5>
+        <div>
+          <button class="directors__card__button" mat-raised-button color="primary" data-bs-toggle="modal"
+            data-bs-target="#updateDirectorModal" (click)="onOpenModal(director, 'edit')">{{t('edit')}}</button>
+          <button class="directors__card__button" mat-raised-button color="warn" data-bs-toggle="modal"
+            data-bs-target="#deleteDirectorModal" (click)="onOpenModal(director, 'delete')">{{t('delete')}}</button>
         </div>
       </div>
     </div>
+    }
   </div>
-  <nav aria-label="Page navigation example">
+  <nav>
     <ul class="pagination justify-content-center">
-      <li *ngFor="let pageNumber of [].constructor(directors.totalPages); let i = index;" class="page-item pointer">
-        <a (click)="goToPage((searchForm.value.title), i)" class="page-link">
-          {{ i + 1 }}
+      <li class="page-item pointer" [ngClass]="currentPage === 0 ? 'disabled' : 'inactive'">
+        <a class="page-link" (click)="goToNextOrPreviousPage('prev', '')" aria-label="Previous">
+          <span aria-hidden="true">&laquo;</span>
+        </a>
+      </li>
+      @for (pageNumber of [].constructor(directors.totalPages); track $index) {
+      <li class="page-item pointer" [ngClass]="currentPage === $index ? 'active' : 'inactive'">
+        <a (click)="goToPage((searchForm.value.title), $index)" class="page-link">
+          {{ $index + 1 }}
+        </a>
+      </li>
+      }
+      <li class="page-item pointer" [ngClass]="currentPage === directors.totalPages - 1 ? 'disabled' : 'inactive'">
+        <a class="page-link" (click)="goToNextOrPreviousPage('next', '')" aria-label="Next">
+          <span aria-hidden="true">&raquo;</span>
         </a>
       </li>
     </ul>
   </nav>
-</div>
-}
-
-<!-- Add Director Modal -->
-<div class="modal fade" id="addDirectorModal" tabindex="-1" role="dialog" aria-labelledby="addDirectorModalLabel"
-  aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="addDirectorModalLabel">Dodaj Reżysera</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <form #addForm="ngForm" (ngSubmit)="onAddDirector(addForm)">
-          <div class="form-group">
-            <label for="name">Imię</label>
-            <input type="text" ngModel name="name" class="form-control" id="name" placeholder="Imię" autocomplete="off">
-          </div>
-          <div class="form-group">
-            <label for="surname">Nazwisko</label>
-            <input type="text" ngModel name="surname" class="form-control" id="surname" placeholder="Nazwisko"
-              autocomplete="off" required>
-          </div>
-          <div class="modal-footer">
-            <button type="button" id="add-director-form" class="btn btn-secondary" data-dismiss="modal">Anuluj</button>
-            <button [disabled]="addForm.invalid" type="submit" class="btn btn-primary">Zapisz</button>
-          </div>
-        </form>
-      </div>
-    </div>
+  } @else {
+  <div class="directors__wrapper">
+    <mat-spinner class="m-1"></mat-spinner>
   </div>
-</div>
+  }
 
-<!-- Edit Modal -->
-<div class="modal fade" id="updateDirectorModal" tabindex="-1" role="dialog" aria-labelledby="directorEditModalLabel"
-  aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="updateDirectorModalLabel">Edytuj Reżysera {{editDirector?.name}}</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <form #editForm="ngForm">
-          <div class="form-group">
-            <label for="name">name</label>
-            <input type="text" ngModel="{{editDirector?.name}}" name="name" class="form-control" id="name"
-              aria-describedby="emailHelp">
-          </div>
-          <input type="hidden" ngModel="{{editDirector?.id}}" name="id" class="form-control" id="id" placeholder="">
-          <div class="form-group">
-            <label for="surname">surname</label>
-            <input type="text" ngModel="{{editDirector?.surname}}" name="surname" class="form-control" id="surname">
-          </div>
-          <div class="modal-footer">
-            <button type="button" id="" data-dismiss="modal" class="btn btn-secondary">Close</button>
-            <button (click)="onUpdateDirector(editForm.value)" data-dismiss="modal" class="btn btn-primary">Save
-              changes</button>
-          </div>
-        </form>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- Delete Modal -->
-<!-- <div class="modal fade" id="deleteDirectorModal" tabindex="-1" role="dialog" aria-labelledby="deleteModelLabel"
-  aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="deleteModelLabel">Delete Director</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <p>Are you sure you want to delete Director {{deleteDirector?.name}} {{deleteDirector?.surname}}?</p>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
-          <button (click)="onDeleteDirector(deleteDirector?.id)" class="btn btn-danger"
-            data-dismiss="modal">Yes</button>
+  <!-- Add Director Modal -->
+  <div class="modal fade" id="addDirectorModal" tabindex="-1" role="dialog" aria-labelledby="addDirectorModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="addDirectorModalLabel">{{t('add')}}</h5>
+          <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+          </button>
+        </div>
+        <div class="modal-body">
+          <form #addForm="ngForm" (ngSubmit)="onAddDirector(addForm)">
+            <div class="form-group">
+              <label for="name">{{t('name')}}</label>
+              <input type="text" ngModel name="name" class="form-control" id="name" autocomplete="off">
+            </div>
+            <div class="form-group">
+              <label for="surname">{{t('surname')}}</label>
+              <input type="text" ngModel name="surname" class="form-control" id="surname" autocomplete="off" required>
+            </div>
+            <div class="modal-footer">
+              <button type="button" id="add-director-form" mat-raised-button
+                data-bs-dismiss="modal">{{t('close')}}</button>
+              <button [disabled]="addForm.invalid" type="submit" mat-raised-button data-bs-dismiss="modal"
+                color="primary">{{t('save')}}</button>
+            </div>
+          </form>
         </div>
       </div>
     </div>
   </div>
-</div> -->
+
+  <!-- Edit Modal -->
+  <div class="modal fade" id="updateDirectorModal" tabindex="-1" role="dialog" aria-labelledby="directorEditModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="updateDirectorModalLabel">{{t('edit')}} {{editDirector?.name}}
+            {{editDirector?.surname}}</h5>
+          <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+          </button>
+        </div>
+        <div class="modal-body">
+          <form #editForm="ngForm">
+            <div class="form-group">
+              <label for="name">{{t('name')}}</label>
+              <input type="text" ngModel="{{editDirector?.name}}" name="name" class="form-control" id="name"
+                aria-describedby="emailHelp">
+            </div>
+            <input type="hidden" ngModel="{{editDirector?.id}}" name="id" class="form-control" id="id" placeholder="">
+            <div class="form-group">
+              <label for="surname">{{t('surname')}}</label>
+              <input type="text" ngModel="{{editDirector?.surname}}" name="surname" class="form-control" id="surname">
+            </div>
+            <div class="modal-footer">
+              <button type="button" mat-raised-button data-bs-dismiss="modal">{{t('close')}}</button>
+              <button (click)="onUpdateDirector(editForm.value)" data-bs-dismiss="modal" mat-raised-button
+                color="primary">{{t('save')}}</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Delete Modal -->
+  <div class="modal fade" id="deleteDirectorModal" tabindex="-1" aria-labelledby="deleteDirectorModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="deleteDirectorModalLabel">{{t('delete_modal.title')}}</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+          </button>
+        </div>
+        <div class="modal-body">
+          <p>{{t('delete_modal.text')}}<span class="modal-movie-title">{{deleteDirector?.name}}
+              {{deleteDirector?.surname}}</span>?</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" mat-raised-button data-bs-dismiss="modal">{{t('no')}}</button>
+          <button type="button" mat-raised-button color="warn" data-bs-dismiss="modal"
+            (click)="onDeleteDirector(deleteDirector)">{{t('yes')}}</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-container>

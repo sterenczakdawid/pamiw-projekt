@@ -1,7 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
-import { BehaviorSubject, Observable, map } from 'rxjs';
+import { Observable, map } from 'rxjs';
 import { Movie, Director } from '../../core/interfaces/movie.interface';
 import { Page } from '../../core/interfaces/page.interface';
 import { DirectorService } from '../../core/services/director.service';
@@ -12,7 +12,6 @@ import { TranslocoModule } from '@ngneat/transloco';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
-import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatSelectModule } from '@angular/material/select';
@@ -28,7 +27,6 @@ import { MatSelectModule } from '@angular/material/select';
     TranslocoModule,
     MatFormFieldModule,
     MatIconModule,
-    MatPaginatorModule,
     MatProgressSpinnerModule,
     ReactiveFormsModule,
     MatSelectModule,
@@ -37,6 +35,8 @@ import { MatSelectModule } from '@angular/material/select';
   styleUrl: './movies.component.scss',
 })
 export class MoviesComponent implements OnInit {
+  movies$!: Observable<Page<Movie>>;
+  directors$!: Observable<Director[]>;
   public editMovie!: Movie;
   public deleteMovie!: Movie;
   public currentPage = 0;
@@ -45,9 +45,6 @@ export class MoviesComponent implements OnInit {
     private movieService: MovieService,
     private directorService: DirectorService
   ) {}
-
-  movies$!: Observable<Page<Movie>>;
-  directors$!: Observable<Director[]>;
 
   ngOnInit(): void {
     setTimeout(() => {
@@ -86,11 +83,10 @@ export class MoviesComponent implements OnInit {
   }
 
   public onAddMovie(addForm: NgForm): void {
-    console.log(addForm.value);
-    // document.getElementById('add-movie-form')?.click();
+    // console.log(addForm.value);
     this.movieService.addMovie(addForm.value).subscribe({
       next: (response: Movie) => {
-        console.log(response);
+        // console.log(response);
         this.goToPage();
         addForm.reset();
       },
@@ -108,7 +104,7 @@ export class MoviesComponent implements OnInit {
         this.goToPage();
       },
       error: (error: HttpErrorResponse) => {
-        alert(error.message);
+        console.log(error);
       },
     });
   }

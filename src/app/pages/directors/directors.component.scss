@@ -1,3 +1,67 @@
 .pointer {
   cursor: pointer;
 }
+
+.title {
+  margin-bottom: 20px;
+}
+
+.add-button {
+  width: 248px;
+}
+
+.card-title {
+  height: 48px;
+}
+
+.modal-movie-title {
+  font-weight: 500;
+}
+
+.directors {
+  &__wrapper {
+    margin: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  &__card {
+    position: relative;
+    margin: 5px;
+    width: 280px;
+    height: 150px;
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+    text-align: center;
+
+    &__button {
+      width: 80px;
+      margin: 10px;
+    }
+  }
+}
+
+.disabled {
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+.pagination > .active > a,
+.pagination > .active > a:focus,
+.pagination > .active > a:hover,
+.pagination > .active > span,
+.pagination > .active > span:focus,
+.pagination > .active > span:hover {
+  background-color: #3f51b5;
+  border-color: #3f51b5;
+  color: #fff;
+}
+
+.pagination > .inactive > a {
+  color: #3f51b5;
+}
+
+nav {
+  padding: 10px;
+}

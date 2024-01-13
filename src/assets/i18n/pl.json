@@ -37,5 +37,22 @@
       "title": "Usuń film",
       "text": "Czy na pewno usunąć film "
     }
+  },
+  "directors": {
+    "page_title": "Reżyserowie",
+    "name": "Imię",
+    "surname": "Nazwisko",
+    "search": "Szukaj",
+    "add": "Dodaj nowego reżysera",
+    "edit": "Edytuj",
+    "delete": "Usuń",
+    "no": "Nie",
+    "yes": "Tak",
+    "close": "Zamknij",
+    "save": "Zapisz",
+    "delete_modal": {
+      "title": "Usuń reżysera",
+      "text": "Czy na pewno usunąć reżysera "
+    }
   }
 }

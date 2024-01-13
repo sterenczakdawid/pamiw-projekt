@@ -1,32 +1,48 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { FormsModule, NgForm } from '@angular/forms';
 import { Observable, map } from 'rxjs';
 import { Director } from '../../core/interfaces/movie.interface';
 import { Page } from '../../core/interfaces/page.interface';
 import { DirectorService } from '../../core/services/director.service';
 import { CommonModule } from '@angular/common';
-import { FormsModule, NgForm } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { TranslocoModule } from '@ngneat/transloco';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatSelectModule } from '@angular/material/select';
 
 @Component({
   selector: 'app-directors',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [
+    CommonModule,
+    FormsModule,
+    MatButtonModule,
+    MatInputModule,
+    TranslocoModule,
+    MatFormFieldModule,
+    MatIconModule,
+    MatProgressSpinnerModule,
+    ReactiveFormsModule,
+    MatSelectModule,
+  ],
   templateUrl: './directors.component.html',
-  styleUrl: './directors.component.scss'
+  styleUrl: './directors.component.scss',
 })
 export class DirectorsComponent implements OnInit {
   directors$!: Observable<Director[]>;
   directorsPage$!: Observable<Page<Director>>;
-  public editDirector?: Director;
-  public deleteDirector?: Director;
+  public editDirector!: Director;
+  public deleteDirector!: Director;
+  public currentPage = 0;
 
   constructor(private directorService: DirectorService) {}
 
   ngOnInit(): void {
-    this.directors$ = this.directorService
-      .getDirectors()
-      .pipe(map((response) => response.data));
-
     this.directorsPage$ = this.directorService
       .getPage('', 0)
       .pipe(map((response) => response.data));
@@ -36,34 +52,29 @@ export class DirectorsComponent implements OnInit {
     this.directorsPage$ = this.directorService
       .getPage(name, pageNumber)
       .pipe(map((response) => response.data));
+
+    this.currentPage = pageNumber;
+  }
+
+  public goToNextOrPreviousPage(direction?: string, title?: string): void {
+    this.goToPage(
+      title,
+      direction === 'next' ? this.currentPage + 1 : this.currentPage - 1
+    );
   }
 
   public onOpenModal(director: Director, mode: string): void {
-    const container = document.getElementById('main-container');
-    const button = document.createElement('button');
-    button.type = 'button';
-    button.style.display = 'none';
-    button.setAttribute('data-toggle', 'modal');
-    if (mode === 'add') {
-      button.setAttribute('data-target', '#addDirectorModal');
-    }
     if (mode === 'edit') {
       this.editDirector = director;
-      button.setAttribute('data-target', '#updateDirectorModal');
     }
     if (mode === 'delete') {
       this.deleteDirector = director;
-      button.setAttribute('data-target', '#deleteDirectorModal');
     }
-    container!.appendChild(button);
-    button.click();
   }
 
   public onAddDirector(addForm: NgForm): void {
-    document.getElementById('add-director-form')?.click();
     this.directorService.addDirector(addForm.value).subscribe({
       next: (response: Director) => {
-        console.log(response);
         this.goToPage();
         addForm.reset();
       },
@@ -77,23 +88,21 @@ export class DirectorsComponent implements OnInit {
   public onUpdateDirector(director: Director): void {
     this.directorService.updateDirector(director).subscribe({
       next: (response: Director) => {
-        console.log(response);
         this.goToPage();
       },
       error: (error: HttpErrorResponse) => {
-        alert(error.message);
+        console.log(error.message);
       },
     });
   }
 
-  public onDeleteDirector(directorId: number): void {
-    this.directorService.deleteDirector(directorId).subscribe({
+  public onDeleteDirector(director: Director): void {
+    this.directorService.deleteDirector(director.id).subscribe({
       next: () => {
-        console.log('Director deleted successfully');
         this.goToPage();
       },
       error: (error: HttpErrorResponse) => {
-        alert(error.message);
+        alert('Cannot remove director, delete his/her movies first!');
       },
     });
   }

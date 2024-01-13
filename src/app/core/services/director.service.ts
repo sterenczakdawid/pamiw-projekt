@@ -51,7 +51,7 @@ export class DirectorService {
 
   public deleteDirector(directorId: number): Observable<void> {
     return this.http.delete<void>(
-      environment.apiUrl + ENDPOINTS.DIRECTORS_DELETE + `${directorId}`
+      environment.apiUrl + ENDPOINTS.DIRECTORS_DELETE + directorId
     );
   }
 }
