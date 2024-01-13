@@ -2,3 +2,27 @@
   flex: 1 1 auto;
 }
 
+.lang {
+  @media (min-width: 768px) {
+    display: none;
+  }
+}
+
+.hamburger {
+  display: none;
+}
+
+@media (max-width: 776px) {
+  .hamburger {
+    display: block;
+  }
+
+  .buttons {
+    display: none;
+  }
+
+  .mobile-menu-open {
+    display: flex !important;
+    flex-direction: column;
+  }
+}

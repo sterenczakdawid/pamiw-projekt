@@ -1,3 +1,11 @@
+:host {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 50px;
+}
+
 .pointer {
   cursor: pointer;
 }
@@ -20,6 +28,7 @@
 
 .directors {
   &__wrapper {
+    max-width: 1200px;
     margin: 10px;
     display: flex;
     justify-content: center;

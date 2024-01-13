@@ -16,7 +16,7 @@ export class DirectorService {
   public getPage(
     name = '',
     page = 0,
-    size = 5
+    size = 8
   ): Observable<ServiceResponse<Page<Director>>> {
     const params = new HttpParams()
       .append('name', name)

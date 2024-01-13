@@ -61,4 +61,15 @@ export class HeaderComponent {
     if (newTheme == oldTheme) return;
     this.themeService.theme = newTheme;
   }
+
+  toggle() {
+    let buttons = document.getElementById('buttons');
+    buttons?.classList.toggle('hidden');
+  }
+
+  isMobileMenuOpen = false;
+
+  toggleMenu() {
+    this.isMobileMenuOpen = !this.isMobileMenuOpen;
+  }
 }
