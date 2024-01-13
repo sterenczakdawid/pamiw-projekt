@@ -50,3 +50,34 @@
 .add-mff {
   width: 90%;
 }
+
+.disabled {
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+.pagination > .active > a {
+  color: #fff;
+}
+.pagination > .active > a,
+.pagination > .active > a:focus,
+.pagination > .active > a:hover,
+.pagination > .active > span,
+.pagination > .active > span:focus,
+.pagination > .active > span:hover {
+  background-color: #3f51b5;
+  border-color: #3f51b5;
+  color: #fff;
+}
+
+.pagination > .inactive > a {
+  color: #3f51b5;
+}
+
+.inactive {
+  color: #fff;
+}
+
+nav {
+  padding: 10px;
+}

@@ -33,7 +33,7 @@
           <button class="movies__card__button" mat-raised-button color="primary" data-bs-toggle="modal"
             data-bs-target="#updateMovieModal" (click)="onOpenModal(movie, 'edit')">{{t('edit')}}</button>
           <button class="movies__card__button" mat-raised-button color="warn" data-bs-toggle="modal"
-            data-bs-target="#exampleModal" (click)="onOpenModal(movie, 'delete')">{{t('delete')}}</button>
+            data-bs-target="#deleteMovieModal" (click)="onOpenModal(movie, 'delete')">{{t('delete')}}</button>
         </div>
       </div>
     </div>
@@ -41,16 +41,25 @@
   </div>
   <nav>
     <ul class="pagination justify-content-center">
-      <li *ngFor="let pageNumber of [].constructor(movies.totalPages); let i = index;" class="page-item pointer">
-        <a (click)="goToPage((searchForm.value.title), i)" class="page-link">
-          {{ i + 1 }}
+      <li class="page-item pointer" [ngClass]="currentPage === 0 ? 'disabled' : 'inactive'">
+        <a class="page-link" (click)="goToNextOrPreviousPage('prev', '')" aria-label="Previous">
+          <span aria-hidden="true">&laquo;</span>
+        </a>
+      </li>
+      @for (pageNumber of [].constructor(movies.totalPages); track $index) {
+      <li class="page-item pointer" [ngClass]="currentPage === $index ? 'active' : 'inactive'">
+        <a (click)="goToPage((searchForm.value.title), $index)" class="page-link">
+          {{ $index + 1 }}
+        </a>
+      </li>
+      }
+      <li class="page-item pointer" [ngClass]="currentPage === movies.totalPages - 1 ? 'disabled' : 'inactive'">
+        <a class="page-link" (click)="goToNextOrPreviousPage('next', '')" aria-label="Next">
+          <span aria-hidden="true">&raquo;</span>
         </a>
       </li>
     </ul>
   </nav>
-  <!-- <mat-paginator (page)="goToPage((searchForm.value.title), movies.number+1)" [length]='movies.totalElements'
-    [pageSize]='movies.numberOfElements' [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page">
-  </mat-paginator> -->
   }
   @else {
   <div class="movies__wrapper">
@@ -60,11 +69,12 @@
 
 
   <!-- Delete modal -->
-  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal fade" id="deleteMovieModal" tabindex="-1" aria-labelledby="deleteMovieModalLabel"
+    aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">{{t('delete_modal.title')}}</h5>
+          <h5 class="modal-title" id="deleteMovieModalLabel">{{t('delete_modal.title')}}</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
           </button>
         </div>
@@ -92,35 +102,36 @@
         </div>
         <div class="modal-body">
           <form #addForm="ngForm" (ngSubmit)="onAddMovie(addForm)">
-            <div class="d-flex justify-content-center align-items-center flex-column">
-              <mat-form-field class="add-mff">
-                <mat-label>{{t('title')}}</mat-label>
-                <input matInput ngModel name="title" id="title" required autocomplete="off">
-              </mat-form-field>
-              @if (directors$ | async; as directors) {
-              <mat-form-field class="add-mff">
-                <mat-label>{{t('director')}}</mat-label>
-                <mat-select ngModel name="director" id="director" required>
-                  @for (director of directors; track $index) {
-                  <mat-option [value]="director">{{director.name}} {{director.surname}}</mat-option>
-                  }
-                </mat-select>
-              </mat-form-field>
-              }
-              <mat-form-field class="add-mff">
-                <mat-label>{{t('released')}}</mat-label>
-                <input matInput type="number" [min]="1960" ngModel name="yearOfRelease" id="yearOfRelease" required
-                  autocomplete="off">
-              </mat-form-field>
-              <mat-form-field class="add-mff">
-                <mat-label>{{t('posterUrl')}}</mat-label>
-                <input matInput ngModel name="posterUrl" id="posterUrl" required autocomplete="off">
-              </mat-form-field>
+            <div class="form-group">
+              <label for="title">{{t('title')}}</label>
+              <input type="text" ngModel name="title" class="form-control" id="title" autocomplete="off" required>
+            </div>
+            @if (directors$ | async; as directors) {
+            <div class="form-group">
+              <label for="director">{{t('director')}}</label>
+              <select ngModel name="director" class="form-control" id="director" required>
+                @for (director of directors; track $index) {
+                <option [ngValue]="director">
+                  {{ director.name }} {{ director.surname }}
+                </option>
+                }
+              </select>
+            </div>
+            }
+            <div class="form-group">
+              <label for="yearOfRelease">{{t('released')}}</label>
+              <input type="number" ngModel name="yearOfRelease" class="form-control" id="yearOfRelease"
+                autocomplete="off" required>
+            </div>
+            <div class="form-group">
+              <label for="posterUrl">{{t('posterUrl')}} </label>
+              <input type="text" ngModel name="posterUrl" class="form-control" id="posterUrl" autocomplete="off"
+                required>
             </div>
             <div class="modal-footer">
               <button type="button" id="add-movie-form" mat-raised-button
                 data-bs-dismiss="modal">{{t('close')}}</button>
-              <button [disabled]="addForm.invalid" type="submit" mat-raised-button
+              <button [disabled]="addForm.invalid" type="submit" mat-raised-button data-bs-dismiss="modal"
                 color="primary">{{t('save')}}</button>
             </div>
           </form>
@@ -142,33 +153,36 @@
         <div class="modal-body">
           <form #editForm="ngForm">
             <div class="form-group">
-              <label for="title">Title</label>
-              <input type="text" ngModel="{{editMovie?.title}}" name="title" class="form-control" id="title"
-                aria-describedby="emailHelp" placeholder="Title">
+              <label for="title">{{t('title')}}</label>
+              <input type="text" ngModel="{{editMovie?.title}}" name="title" class="form-control" id="title">
             </div>
-            <input type="hidden" ngModel="{{editMovie?.id}}" name="id" class="form-control" id="id" placeholder="">
-            <div class="form-group" *ngIf="directors$ | async as directors">
-              <label for="director">Director</label>
-              <select ngModel name="director" class="form-control" id="director" placeholder="Director" required>
-                <option *ngFor="let director of directors" [ngValue]="director">
+            <input type="hidden" ngModel="{{editMovie?.id}}" name="id" class="form-control" id="id">
+            @if (directors$ | async; as directors) {
+            <div class="form-group">
+              <label for="director">{{t('director')}}</label>
+              <select ngModel name="director" class="form-control" id="director" required>
+                @for (director of directors; track $index) {
+                <option [ngValue]="director" [selected]="director.id === editMovie?.director?.id">
                   {{ director.name }} {{ director.surname }}
                 </option>
+                }
               </select>
             </div>
+            }
             <div class="form-group">
-              <label for="yearOfRelease">yearOfRelease</label>
+              <label for="yearOfRelease">{{t('released')}}</label>
               <input type="number" ngModel="{{editMovie?.yearOfRelease}}" name="yearOfRelease" class="form-control"
                 id="yearOfRelease" placeholder="2023">
             </div>
             <div class="form-group">
-              <label for="posterUrl">Image URL</label>
+              <label for="posterUrl">{{t('posterUrl')}}</label>
               <input type="text" ngModel="{{editMovie?.posterUrl}}" name="posterUrl" class="form-control" id="posterUrl"
                 placeholder="Movie URL">
             </div>
             <div class="modal-footer">
-              <button type="button" id="" data-dismiss="modal" class="btn btn-secondary">Close</button>
-              <button (click)="onUpdateMovie(editForm.value)" data-dismiss="modal" class="btn btn-primary">Save
-                changes</button>
+              <button type="button" mat-raised-button data-bs-dismiss="modal">{{t('close')}}</button>
+              <button (click)="onUpdateMovie(editForm.value)" data-bs-dismiss="modal" mat-raised-button
+                color="primary">{{t('save')}}</button>
             </div>
           </form>
         </div>

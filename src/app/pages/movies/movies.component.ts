@@ -1,7 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
-import { Observable, map } from 'rxjs';
+import { BehaviorSubject, Observable, map } from 'rxjs';
 import { Movie, Director } from '../../core/interfaces/movie.interface';
 import { Page } from '../../core/interfaces/page.interface';
 import { DirectorService } from '../../core/services/director.service';
@@ -39,6 +39,7 @@ import { MatSelectModule } from '@angular/material/select';
 export class MoviesComponent implements OnInit {
   public editMovie!: Movie;
   public deleteMovie!: Movie;
+  public currentPage = 0;
 
   constructor(
     private movieService: MovieService,
@@ -64,6 +65,15 @@ export class MoviesComponent implements OnInit {
     this.movies$ = this.movieService
       .get(title, pageNumber)
       .pipe(map((response) => response.data));
+
+    this.currentPage = pageNumber;
+  }
+
+  public goToNextOrPreviousPage(direction?: string, title?: string): void {
+    this.goToPage(
+      title,
+      direction === 'next' ? this.currentPage + 1 : this.currentPage - 1
+    );
   }
 
   public onOpenModal(movie: Movie, mode: string): void {

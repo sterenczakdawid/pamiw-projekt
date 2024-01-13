@@ -16,7 +16,7 @@ export class MovieService {
   public get(
     title = '',
     page = 0,
-    size = 10
+    size = 5
   ): Observable<ServiceResponse<Page<Movie>>> {
     const params = new HttpParams()
       .append('title', title)
