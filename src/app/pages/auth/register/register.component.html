@@ -1,5 +1,6 @@
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
 
+@if (theme$ | async; as theme) {
 <div class="card" *transloco="let t; read: 'auth'">
   <div class="card-header">
     <h2 class="card-title">{{t('register')}}</h2>
@@ -48,3 +49,4 @@
     </form>
   </div>
 </div>
+}

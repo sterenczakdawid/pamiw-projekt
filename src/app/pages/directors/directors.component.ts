@@ -1,5 +1,5 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { Observable, map } from 'rxjs';
 import { Director } from '../../core/interfaces/movie.interface';
@@ -14,6 +14,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatSelectModule } from '@angular/material/select';
+import { ThemeService } from '../../core/services/theme.service';
 
 @Component({
   selector: 'app-directors',
@@ -42,7 +43,11 @@ export class DirectorsComponent implements OnInit {
 
   constructor(private directorService: DirectorService) {}
 
+  theme$!: Observable<string>;
+  private themeService = inject(ThemeService);
+
   ngOnInit(): void {
+    this.theme$ = this.themeService.theme;
     this.directorsPage$ = this.directorService
       .getPage('', 0)
       .pipe(map((response) => response.data));

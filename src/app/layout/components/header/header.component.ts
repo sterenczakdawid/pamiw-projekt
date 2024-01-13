@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import { AuthService } from './../../../core/services/auth.service';
 import { Component, NgZone, inject } from '@angular/core';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -7,11 +8,14 @@ import { MatMenuModule } from '@angular/material/menu';
 import { Router, RouterLink } from '@angular/router';
 import { PathRoutes } from '../../../core/constants/routes.const';
 import { TranslocoModule, TranslocoService } from '@ngneat/transloco';
+import { Observable } from 'rxjs';
+import { ThemeService } from '../../../core/services/theme.service';
 
 @Component({
   selector: 'app-header',
   standalone: true,
   imports: [
+    CommonModule,
     MatToolbarModule,
     MatIconModule,
     MatButtonModule,
@@ -27,6 +31,13 @@ export class HeaderComponent {
   authService = inject(AuthService);
   router = inject(Router);
   private _ngZone = inject(NgZone);
+
+  theme$!: Observable<string>;
+  private themeService = inject(ThemeService);
+
+  ngOnInit(): void {
+    this.theme$ = this.themeService.theme;
+  }
 
   logout() {
     this.authService.removeToken();
@@ -44,5 +55,10 @@ export class HeaderComponent {
     } else {
       this.translocoService.setActiveLang('pl');
     }
+  }
+
+  changeTheme(newTheme: string, oldTheme: string): void {
+    if (newTheme == oldTheme) return;
+    this.themeService.theme = newTheme;
   }
 }

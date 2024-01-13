@@ -1,7 +1,8 @@
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
 
+@if (theme$ | async; as theme) {
 <ng-container *transloco="let t; read: 'movies'">
-  <div class="header d-flex justify-content-center align-items-center flex-column">
+  <div class="header d-flex justify-content-center align-items-center flex-column" [class.text__white]="theme==='dark'">
     <h1 class="title">{{t('page_title')}}</h1>
     <form #searchForm="ngForm" (ngSubmit)="goToPage(searchForm.value.title)" role="search">
       <mat-form-field appearance="outline">
@@ -69,8 +70,8 @@
 
 
   <!-- Delete modal -->
-  <div class="modal fade" id="deleteMovieModal" tabindex="-1" aria-labelledby="deleteMovieModalLabel"
-    aria-hidden="true">
+  <div class="modal fade" id="deleteMovieModal" tabindex="-1" aria-labelledby="deleteMovieModalLabel" aria-hidden="true"
+    [class.text__white]="theme==='dark'">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
@@ -92,7 +93,7 @@
 
   <!-- Add Movie Modal -->
   <div class="modal fade" id="addMovieModal" tabindex="-1" role="dialog" aria-labelledby="addMovieModalLabel"
-    aria-hidden="true">
+    aria-hidden="true" [class.text__white]="theme==='dark'">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
@@ -142,7 +143,7 @@
 
   <!-- Edit Modal -->
   <div class="modal fade" id="updateMovieModal" tabindex="-1" role="dialog" aria-labelledby="movieEditModalLabel"
-    aria-hidden="true">
+    aria-hidden="true" [class.text__white]="theme==='dark'">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
@@ -190,3 +191,4 @@
     </div>
   </div>
 </ng-container>
+}

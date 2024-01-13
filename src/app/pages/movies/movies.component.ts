@@ -1,5 +1,6 @@
+import { ThemeService } from './../../core/services/theme.service';
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { Observable, map } from 'rxjs';
 import { Movie, Director } from '../../core/interfaces/movie.interface';
@@ -46,7 +47,11 @@ export class MoviesComponent implements OnInit {
     private directorService: DirectorService
   ) {}
 
+  theme$!: Observable<string>;
+  private themeService = inject(ThemeService);
+
   ngOnInit(): void {
+    this.theme$ = this.themeService.theme;
     setTimeout(() => {
       this.movies$ = this.movieService
         .get()

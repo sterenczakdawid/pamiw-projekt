@@ -22,5 +22,23 @@
   <button (click)="changeLanguage()">
     {{ t('language') }}
   </button>
+  <!-- <button (click)="changeTheme()">
+    {{ t('theme') }}
+  </button> -->
+
+  <div *ngIf="theme$| async as theme" class="btn-group" role="group">
+    <input type="radio" class="btn-check" name="light" id="light" autocomplete="off"
+      (focus)="changeTheme('light',theme)" [checked]="theme ==='light'">
+    <label class="btn btn-outline-primary" for="light" [title]="t('changeToLightTheme')">
+      🌞
+    </label>
+
+    <input type="radio" class="btn-check" name="dark" id="dark" autocomplete="off" (focus)="changeTheme('dark',theme)"
+      [checked]="theme ==='dark'">
+    <label class="btn btn-outline-primary" for="dark" [title]="t('changeToDarkTheme')">
+      🌑
+    </label>
+
+  </div>
   <!-- <button mat-raised-button (click)="signInWithGoogle()">Gugl</button> -->
 </ng-container>

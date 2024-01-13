@@ -6,7 +6,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { take, tap, catchError, of } from 'rxjs';
+import { take, tap, catchError, of, Observable } from 'rxjs';
 import { LoginRequest } from '../../../core/interfaces/auth.interface';
 import { AuthService } from '../../../core/services/auth.service';
 import { CommonModule } from '@angular/common';
@@ -15,6 +15,7 @@ import {
   SocialAuthService,
   GoogleSigninButtonModule,
 } from '@abacritt/angularx-social-login';
+import { ThemeService } from '../../../core/services/theme.service';
 
 @Component({
   selector: 'app-login',
@@ -40,12 +41,16 @@ export class LoginComponent implements OnInit {
   private socialAuthService = inject(SocialAuthService);
   private _ngZone = inject(NgZone);
 
+  theme$!: Observable<string>;
+  private themeService = inject(ThemeService);
+
   loginForm = this.fb.group({
     email: ['', [Validators.required, Validators.email]],
     password: ['', [Validators.required]],
   });
 
   ngOnInit(): void {
+    this.theme$ = this.themeService.theme;
     // @ts-ignore
     window.onGoogleLibraryLoad = () => {
       console.log('wtf');

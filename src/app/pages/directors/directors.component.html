@@ -1,7 +1,8 @@
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
 
+@if (theme$ | async; as theme) {
 <ng-container *transloco="let t; read: 'directors'">
-  <div class="header d-flex justify-content-center align-items-center flex-column">
+  <div class="header d-flex justify-content-center align-items-center flex-column" [class.text__white]="theme==='dark'">
     <h1 class="title">{{t('page_title')}}</h1>
     <form #searchForm="ngForm" (ngSubmit)="goToPage(searchForm.value.title)" role="search">
       <mat-form-field appearance="outline">
@@ -19,7 +20,7 @@
   </div>
 
   @if(directorsPage$ | async; as directors) {
-  <div class="directors__wrapper">
+  <div class="directors__wrapper" [class.text__white]="theme==='dark'">
     @for(director of directors.content; track $index) {
     <div class="card directors__card">
       <div class="card-body">
@@ -63,7 +64,7 @@
 
   <!-- Add Director Modal -->
   <div class="modal fade" id="addDirectorModal" tabindex="-1" role="dialog" aria-labelledby="addDirectorModalLabel"
-    aria-hidden="true">
+    aria-hidden="true" [class.text__white]="theme==='dark'">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
@@ -95,7 +96,7 @@
 
   <!-- Edit Modal -->
   <div class="modal fade" id="updateDirectorModal" tabindex="-1" role="dialog" aria-labelledby="directorEditModalLabel"
-    aria-hidden="true">
+    aria-hidden="true" [class.text__white]="theme==='dark'">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
@@ -129,7 +130,7 @@
 
   <!-- Delete Modal -->
   <div class="modal fade" id="deleteDirectorModal" tabindex="-1" aria-labelledby="deleteDirectorModalLabel"
-    aria-hidden="true">
+    aria-hidden="true" [class.text__white]="theme==='dark'">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
@@ -150,3 +151,4 @@
     </div>
   </div>
 </ng-container>
+}

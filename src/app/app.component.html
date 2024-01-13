@@ -1,3 +1,5 @@
-<app-layout>
-  <router-outlet />
-</app-layout>
+<div *ngIf="theme$ | async as theme" [attr.data-bs-theme]="theme" [class.black__background]="theme ==='dark'">
+  <app-layout>
+    <router-outlet />
+  </app-layout>
+</div>

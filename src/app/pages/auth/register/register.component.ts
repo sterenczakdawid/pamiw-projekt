@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -7,11 +7,12 @@ import {
   Validators,
 } from '@angular/forms';
 import { Router } from '@angular/router';
-import { take, tap, catchError, of } from 'rxjs';
+import { take, tap, catchError, of, Observable } from 'rxjs';
 import { AuthService } from '../../../core/services/auth.service';
 import { PasswordMatchValidator } from '../../../shared/validators/password-match.validator';
 import { TranslocoModule } from '@ngneat/transloco';
 import { RegisterRequest } from '../../../core/interfaces/auth.interface';
+import { ThemeService } from '../../../core/services/theme.service';
 
 @Component({
   selector: 'app-register',
@@ -20,11 +21,17 @@ import { RegisterRequest } from '../../../core/interfaces/auth.interface';
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss',
 })
-export class RegisterComponent {
+export class RegisterComponent implements OnInit {
   private authService = inject(AuthService);
   private fb = inject(FormBuilder);
   private router = inject(Router);
-  // canSubmit = true;
+
+  theme$!: Observable<string>;
+  private themeService = inject(ThemeService);
+
+  ngOnInit(): void {
+    this.theme$ = this.themeService.theme;
+  }
 
   registerForm = this.fb.group(
     {

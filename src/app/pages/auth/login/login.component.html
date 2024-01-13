@@ -1,5 +1,6 @@
 <script src="https://accounts.google.com/gsi/client" async></script>
-<div class="login__wrapper">
+@if (theme$ | async; as theme) {
+<div class="login__wrapper" [class.text__white]="theme==='dark'">
   <div class="login__card">
     <h2 class="login__card__title">Zaloguj się</h2>
     <form class="login__form" [formGroup]="loginForm" (ngSubmit)="submitForm()">
@@ -48,6 +49,7 @@
     <div id="buttonDiv"></div>
   </div>
 </div>
+}
 
 <!-- <div class="g_id_onload" data-client_id="" data-context="signin" data-ux_mode="popup" data-itp_support="true"
   data-callback="handleOauthResponse">
