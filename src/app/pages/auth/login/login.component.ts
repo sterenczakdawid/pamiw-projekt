@@ -105,6 +105,7 @@ export class LoginComponent implements OnInit {
         }),
         catchError(() => {
           this.loginForm.reset();
+          alert('Nie udało się zalogować');
           return of(false);
         })
       )

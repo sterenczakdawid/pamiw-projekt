@@ -10,6 +10,7 @@ import { PathRoutes } from '../../../core/constants/routes.const';
 import { TranslocoModule, TranslocoService } from '@ngneat/transloco';
 import { Observable } from 'rxjs';
 import { ThemeService } from '../../../core/services/theme.service';
+import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
 
 @Component({
   selector: 'app-header',

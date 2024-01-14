@@ -3,5 +3,10 @@
   <h2>{{t('welcome')}}!</h2>
   <p>{{t('yourEmail')}} {{username}}</p>
   <p>{{t('yourRole')}} {{role}}</p>
+
+  <div class="mobile">
+    <button mat-raised-button (click)="captureImage()">{{t('image')}}</button>
+    <img [src]="image" *ngIf="image" [style.width]="'300px'" alt="">
+  </div>
 </div>
 }
