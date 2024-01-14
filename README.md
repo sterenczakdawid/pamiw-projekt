@@ -1,27 +1,96 @@
-# PamiwProjekt
+# Pamiw - Projekt
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.0.5.
+## Aplikacja
 
-## Development server
+Aplikacja została stworzona przy użyciu **Java Spring Boot** oraz **Angular**.
+Aplikacja zawiera podstawowe operacje CRUD na filmach oraz reżyserach.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+Ponadto aplikacja zawiera funkcjonalności takie jak:
 
-## Code scaffolding
+- możliwość wyboru języka (polski/angielski)
+- tryb jasny i ciemny
+- social login z Google
+- logowanie przez e-mail wykorzystując JWT
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## Uruchomienie aplikacji
 
-## Build
+Backend jest hostowany na publicznym serwerze.
+W celu uruchomienia frontendu należy użyć poleceń
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+```bash
+npm install
+ng serve
+```
 
-## Running unit tests
+Aplikacja uruchomi się pod adresem `http://localhost:4200/`.
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+## Zrealizowane funkcjonalności
 
-## Running end-to-end tests
+### Kompatybilność aplikacji mobilnej
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+W ramach projektu powstała aplikacja mobilna dostępna na urządzenia z systemami
+Android oraz iOS. Aplikacja została wykonana przy pomocy **Capacitor by Ionic**.
+<br>
+<video src="markdown/mobilna.mp4" controls title="Aplikacja mobilna"></video>
 
-## Further help
+### Udoskonalenie interfejsu aplikacji mobilnej i webowej
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+#### Spójność wizualna
+
+Aplikacja webowa oraz mobilna są spójne.
+<br>
+Webowa:
+<br>
+![Webowa](markdown/webowa.png)
+<br>
+Mobilna:
+<br>
+![Mobilna](markdown/mobilna.png)
+
+#### Wysokiej jakości ikony i grafika
+![Ikony](markdown/ikony.png)
+
+#### Odpowiedź interfejsu
+![Loading](markdown/loading.png)
+
+#### Wykorzystanie gotowych szablonów
+
+Wykorzystano gotowe komponenty [Bootstrap](https://getbootstrap.com/) oraz [Angular Material](https://material.angular.io/)
+
+#### Walidacja
+Blokowanie przycisku, wyświetlanie odpowiednich komunikatów dla użytkownika
+![Walidacja](markdown/walidacja.png)
+
+### Ustawienia użytkownika
+
+#### Wielojęzyczność
+
+Obsługa języków polskiego i angielskiego
+<br>
+Polski:
+![Polski](markdown/pl.png)
+<br>
+Angielski:
+![Alt text](markdown/eng.png)
+<br>
+
+#### Tryb jasny/ciemny
+Tryb jasny został przedstawiony powyżej.
+Tryb ciemny prezentuje się następująco:
+<br>
+![Tryb ciemny](markdown/ciemny.png)
+
+### Opcje logowania/rejestracji
+
+Logowanie wykorzystując konto Google
+![Logowanie google](markdown/google.png)
+![Logowanie google](markdown/google2.png)
+
+### Dostęp do zasobów sprzętowych
+
+Aplikacja mobilna posiada dostęp do aparatu.
+Zostało to przedstawione na filmie prezentującym działanie aplikacji.
+
+### Warstwa serwisów dla aplikacji mobilnej i webowej
+
+Dzięki użyciu narzędzia **Capacitor** aplikacja mobilna bez problemu korzysta z tych samych serwisów, które zostały napisane dla aplikacji webowej.
