@@ -1,51 +1,51 @@
 <ng-container *transloco="let t">
   <nav>
     <mat-toolbar color="primary">
-      <span>Movies App</span>
+      <span>{{t('app')}}</span>
       <span class="example-spacer"></span>
-        <div class="controls">
-          <button mat-button (click)="changeLanguage()">
-            <span class="fi fi-us"></span> / <span class="fi fi-pl"></span>
-          </button>
-
-          <div *ngIf="theme$| async as theme" class="btn-group" role="group">
-            <input type="radio" class="btn-check" name="light" id="light" autocomplete="off"
-              (focus)="changeTheme('light',theme)" [checked]="theme ==='light'">
-            <label class="btn btn-outline-primary" for="light">
-              🌞
-            </label>
-
-            <input type="radio" class="btn-check" name="dark" id="dark" autocomplete="off"
-              (focus)="changeTheme('dark',theme)" [checked]="theme ==='dark'">
-            <label class="btn btn-outline-primary" for="dark">
-              🌑
-            </label>
-          </div>
-        </div>
-        <div id="buttons" class="buttons">
-          <button mat-button routerLink="/movies">{{t('navigation.movies')}}</button>
-          <button mat-button routerLink="/directors">{{t('navigation.directors')}}</button>
-          <button mat-button [matMenuTriggerFor]="beforeMenu">{{t('navigation.account')}}</button>
-          <mat-menu #beforeMenu="matMenu" xPosition="before">
-            @if(authService.token) {
-            <button routerLink="/auth/account" mat-menu-item>dupa</button>
-            <button (click)="logout()" mat-menu-item>wyloguj</button>
-            }
-            @else {
-            <button routerLink="/auth/login" mat-menu-item>{{t('navigation.login')}}</button>
-            <button routerLink="/auth/register" mat-menu-item>{{t('navigation.register')}}</button>
-            }
-          </mat-menu>
-        </div>
-
-        <button class="lang" mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
-          <mat-icon>menu</mat-icon>
+      <div class="controls">
+        <button mat-button (click)="changeLanguage()">
+          <span class="fi fi-us"></span> / <span class="fi fi-pl"></span>
         </button>
-        <mat-menu #menu="matMenu" class="my-class">
-          <button mat-menu-item routerLink="/movies">{{t('navigation.movies')}}</button>
-          <button mat-menu-item routerLink="/directors">{{t('navigation.directors')}}</button>
-          <button mat-menu-item [matMenuTriggerFor]="beforeMenu">{{t('navigation.account')}}</button>
+
+        <div *ngIf="theme$| async as theme" class="btn-group" role="group">
+          <input type="radio" class="btn-check" name="light" id="light" autocomplete="off"
+            (focus)="changeTheme('light',theme)" [checked]="theme ==='light'">
+          <label class="btn btn-outline-primary" for="light">
+            ☀️
+          </label>
+
+          <input type="radio" class="btn-check" name="dark" id="dark" autocomplete="off"
+            (focus)="changeTheme('dark',theme)" [checked]="theme ==='dark'">
+          <label class="btn btn-outline-primary" for="dark">
+            🌑
+          </label>
+        </div>
+      </div>
+      <div id="buttons" class="buttons">
+        <button mat-button routerLink="/movies">{{t('navigation.movies')}}</button>
+        <button mat-button routerLink="/directors">{{t('navigation.directors')}}</button>
+        <button mat-button [matMenuTriggerFor]="beforeMenu">{{t('navigation.account')}}</button>
+        <mat-menu #beforeMenu="matMenu" xPosition="before">
+          @if(authService.token) {
+          <button routerLink="/auth/account" mat-menu-item>{{t('navigation.my-acc')}}</button>
+          <button (click)="logout()" mat-menu-item>{{t('navigation.logout')}}</button>
+          }
+          @else {
+          <button routerLink="/auth/login" mat-menu-item>{{t('navigation.login')}}</button>
+          <button routerLink="/auth/register" mat-menu-item>{{t('navigation.register')}}</button>
+          }
         </mat-menu>
+      </div>
+
+      <button class="lang" mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+        <mat-icon>menu</mat-icon>
+      </button>
+      <mat-menu #menu="matMenu" class="my-class">
+        <button mat-menu-item routerLink="/movies">{{t('navigation.movies')}}</button>
+        <button mat-menu-item routerLink="/directors">{{t('navigation.directors')}}</button>
+        <button mat-menu-item [matMenuTriggerFor]="beforeMenu">{{t('navigation.account')}}</button>
+      </mat-menu>
     </mat-toolbar>
   </nav>
 </ng-container>

@@ -1,5 +1,9 @@
 {
+  "app": "Filmy",
   "language": "Zmień język",
+  "welcome": "Witaj!",
+  "yourEmail": "Twój email: ",
+  "yourRole": "Twoja rola: ",
   "navigation": {
     "movies": "Filmy",
     "directors": "Reżyserowie",
@@ -11,13 +15,16 @@
   },
   "auth": {
     "login": "Logowanie",
-    "register": "Rejestracja",
+    "registration": "Rejestracja",
     "name": "Imię",
+    "email": "Email",
     "password": "Hasło",
     "repeatPassword": "Powtórz hasło",
     "passwordsMustMatch": "Hasła muszą być takie same!",
     "loginLink": "Masz już konto? Zaloguj się!",
-    "registerLink": "Nie masz konta? Zarejestruj się!"
+    "registerLink": "Nie masz konta? Zarejestruj się!",
+    "register": "Zarejestruj się",
+    "required": "Wymagane"
   },
   "movies": {
     "page_title": "Filmy",

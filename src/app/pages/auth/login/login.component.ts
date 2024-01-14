@@ -16,6 +16,7 @@ import {
   GoogleSigninButtonModule,
 } from '@abacritt/angularx-social-login';
 import { ThemeService } from '../../../core/services/theme.service';
+import { TranslocoModule } from '@ngneat/transloco';
 
 @Component({
   selector: 'app-login',
@@ -29,6 +30,7 @@ import { ThemeService } from '../../../core/services/theme.service';
     MatButtonModule,
     ReactiveFormsModule,
     GoogleSigninButtonModule,
+    TranslocoModule,
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
@@ -53,7 +55,6 @@ export class LoginComponent implements OnInit {
     this.theme$ = this.themeService.theme;
     // @ts-ignore
     window.onGoogleLibraryLoad = () => {
-      console.log('wtf');
       // @ts-ignore
       google.accounts.id.initialize({
         client_id:

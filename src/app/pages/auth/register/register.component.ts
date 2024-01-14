@@ -1,23 +1,25 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit, inject } from '@angular/core';
-import {
-  FormBuilder,
-  FormGroup,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms';
-import { Router } from '@angular/router';
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Router, RouterLink } from '@angular/router';
 import { take, tap, catchError, of, Observable } from 'rxjs';
 import { AuthService } from '../../../core/services/auth.service';
 import { PasswordMatchValidator } from '../../../shared/validators/password-match.validator';
 import { TranslocoModule } from '@ngneat/transloco';
 import { RegisterRequest } from '../../../core/interfaces/auth.interface';
 import { ThemeService } from '../../../core/services/theme.service';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, TranslocoModule],
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    TranslocoModule,
+    RouterLink,
+    MatButtonModule,
+  ],
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss',
 })

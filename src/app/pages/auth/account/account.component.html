@@ -1,2 +1,7 @@
-<h2>Witaj {{username}}!</h2>
-<p>Twoja rola to {{role}}</p>
+@if (theme$ | async; as theme) {
+<div class="container" [class.text__white]="theme==='dark'" *transloco="let t;">
+  <h2>{{t('welcome')}}!</h2>
+  <p>{{t('yourEmail')}} {{username}}</p>
+  <p>{{t('yourRole')}} {{role}}</p>
+</div>
+}

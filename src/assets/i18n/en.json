@@ -1,5 +1,9 @@
 {
+  "app": "Movies app",
   "language": "Change language",
+  "welcome": "Welcome!",
+  "yourEmail": "Your email: ",
+  "yourRole": "Your role: ",
   "navigation": {
     "movies": "Movies",
     "directors": "Directors",
@@ -11,13 +15,16 @@
   },
   "auth": {
     "login": "Login",
-    "register": "Register",
+    "registration": "Register",
     "name": "Name",
+    "email": "Email",
     "password": "Password",
     "repeatPassword": "Repeat password",
     "passwordsMustMatch": "Passwords must match",
     "loginLink": "Already have an account? Login here",
-    "registerLink": "Don't have an account? Register here"
+    "registerLink": "Don't have an account? Register here",
+    "register": "Register",
+    "required": "Required"
   },
   "movies": {
     "page_title": "Movies",

@@ -1,55 +1,35 @@
 <script src="https://accounts.google.com/gsi/client" async></script>
+
 @if (theme$ | async; as theme) {
-<div class="login__wrapper" [class.text__white]="theme==='dark'">
-  <div class="login__card">
-    <h2 class="login__card__title">Zaloguj się</h2>
-    <form class="login__form" [formGroup]="loginForm" (ngSubmit)="submitForm()">
+<div class="card" *transloco="let t; read: 'auth'">
+  <div class="card-header">
+    <h2 class="card-title">{{t('login')}}</h2>
+  </div>
+  <div class="card-body">
+    <form class="form" [formGroup]="loginForm" (ngSubmit)="submitForm()">
       <div class="mb-3">
-        <label for="email" class="form-label">emial</label>
-        <input type="text" class="form-control" id="email" formControlName="email" />
+        <label for="email" class="form-label">{{t('email')}}</label>
+        <input type="text" class="form-control" id="email" formControlName="email" autocomplete="off" />
         <div class="text-danger"
           *ngIf="loginForm.get('email')!.touched && loginForm.get('email')!.hasError('required')">
-          required
+          {{t('required')}}
         </div>
       </div>
 
       <div class="mb-3">
-        <label for="password" class="form-label">pass</label>
-        <input type="password" class="form-control" id="password" formControlName="password" />
+        <label for="password" class="form-label">{{t('password')}}</label>
+        <input type="password" class="form-control" id="password" formControlName="password" autocomplete="off" />
         <div class="text-danger"
           *ngIf="loginForm.get('password')!.touched && loginForm.get('password')!.hasError('required')">
-          required
+          {{t('required')}}
         </div>
       </div>
-      <!-- <mat-form-field>
-        <mat-label>name</mat-label>
-        <input matInput required minlength="4">
-      </mat-form-field>
-      <mat-form-field>
-        <mat-label>Password</mat-label>
-        <input matInput required minlength="8" [type]="hide ? 'password' : 'text'">
-        <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
-          [attr.aria-pressed]="hide">
-          <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-        </button>
-      </mat-form-field> -->
-      <button type="submit" mat-raised-button color="primary">Login</button>
+      <button type="submit" mat-raised-button color="primary" [disabled]="loginForm.invalid">{{t('login')}}</button>
     </form>
   </div>
-  <!-- <asl-google-signin-button type='standard' size='large'>
-  </asl-google-signin-button>
-  <div>
-    <h4>{{ user?.name }}</h4>
-    <p>{{ user?.email }}</p>
-    <p>{{loggedIn ? 'true' : 'false'}}</p>
-  </div>
-  <button (click)="signOut()" mat-raised-button color="primary">logout</button> -->
-    <h2>Login with google</h2>
+  <div class="hr"></div>
+  <div class="google">
     <div id="buttonDiv"></div>
-
+  </div>
 </div>
 }
-
-<!-- <div class="g_id_onload" data-client_id="" data-context="signin" data-ux_mode="popup" data-itp_support="true"
-  data-callback="handleOauthResponse">
-</div> -->
